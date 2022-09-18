@@ -443,7 +443,11 @@ const mp_obj_module_t mp_module_camera_system = {
     .globals = (mp_obj_dict_t *)&camera_module_globals,
 };
 
-MP_REGISTER_MODULE(MP_QSTR_camera, mp_module_camera_system, MODULE_CAMERA_ENABLED);
+#if CONFIG_IDF_TARGET_ESP32S2 || CONFIG_IDF_TARGET_ESP32S3
+    MP_REGISTER_MODULE(MP_QSTR_camera, mp_module_camera_system);
+#else
+    MP_REGISTER_MODULE(MP_QSTR_camera, mp_module_camera_system, MODULE_CAMERA_ENABLED);
+#endif
 
 
 #endif
